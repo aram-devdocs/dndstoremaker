@@ -1,11 +1,4 @@
-import logger from './logger';
-let argon2;
-try {
-  argon2 = require('argon2');
-} catch (error) {
-  logger.error(error);
-  console.log(error);
-}
+let argon2 = require("argon2");
 
 export async function generatePassword(password) {
   // Create Hash
