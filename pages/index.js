@@ -18,11 +18,6 @@ export async function getServerSideProps({ req, res }) {
     return {
       props: {
         status: true,
-        dnd_categories: await fetch(
-          "https://www.dnd5eapi.co/api/equipment-categories/"
-        ).then((e) => {
-          return e.json();
-        }),
       },
     };
   } else {
