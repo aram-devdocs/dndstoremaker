@@ -98,7 +98,7 @@ export default function SearchDatabase(props) {
     let str = JSON.stringify(details, null, 1);
     setItemDetails(
       <div key="preview">
-        <ItemCard data={details} />
+        <ItemCard mode={props.mode || "view"} data={details} />
         {/* <pre>{str}</pre> */}
       </div>
     );
