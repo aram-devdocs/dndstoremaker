@@ -102,6 +102,11 @@ export default function SearchDatabase(props) {
         {/* <pre>{str}</pre> */}
       </div>
     );
+
+    // Set local storage object for current item details
+
+    // console.log(typeof items[0].details);
+    window.localStorage.setItem("current_item_details", items[0].details);
   }
   // Return App
   return (

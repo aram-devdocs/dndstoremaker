@@ -1,5 +1,8 @@
+import { getCookie } from "../helpers/cookieHandler";
+import _escapeString from "./../helpers/_escapeString";
+
 export default function ItemCard(props) {
-  console.log(props);
+  // console.log(props);
 
   let element_arrays = [];
 
@@ -47,32 +50,62 @@ export default function ItemCard(props) {
           element_arrays.push(
             <li key={`${sub_value}_${sub_key}`}>
               {key + "_" + sub_key}:{" "}
-              <input type={typeof sub_value} defaultValue={String(sub_value)} />
+              <input
+                className="details_input"
+                id={`${key}_${sub_key}`}
+                type={typeof sub_value}
+                defaultValue={String(sub_value)}
+              />
             </li>
           );
         }
       } else {
         element_arrays.push(
           <li key={`${value}_${key}`}>
-            {key}: <input type={typeof value} defaultValue={String(value)} />
+            {key}:{" "}
+            <input
+              className="details_input"
+              id={key}
+              type={typeof value}
+              defaultValue={String(value)}
+            />
           </li>
         );
       }
     }
 
     // Add Submit button
-    function submitNewItem(e) {
+    async function submitNewItem(e) {
       e.preventDefault();
-      console.log("click");
 
-      //   let data =
+      // Get user_id from cookies
+      let user_id = await getCookie("user_id");
+      user_id = user_id.user_id;
 
-      // TODO -
-      /*
-      user_id
-      details
-      url
-      */
+      // Create details JSON object
+      let inputs = document.getElementsByClassName("details_input");
+      console.log(inputs);
+
+      let details = {};
+      for (let i in inputs) {
+        let key = inputs[i].id;
+        let value = inputs[i].value;
+        // if (!value == undefined) {
+        details[key] = value;
+        // }
+      }
+
+      let new_item = await fetch("/api/post-custom-item", {
+        method: "POST",
+        body: JSON.stringify({
+          name: details.name,
+          url: details.url,
+          user_id: user_id,
+          details: _escapeString(JSON.stringify(details)),
+        }),
+      });
+
+      console.log(new_item);
     }
     element_arrays.push(
       <input
@@ -86,10 +119,9 @@ export default function ItemCard(props) {
 
   return (
     <div className="item-card">
-      <h3>Item Placeholder</h3>
       {/* <table></table> */}
       <ul />
-      {element_arrays}
+      <div id="detail_block">{element_arrays}</div>
     </div>
   );
 }

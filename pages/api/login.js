@@ -23,6 +23,7 @@ export default async function handler(req, res) {
   if (await checkPassword(user.password, body.password)) {
     response.status = 200;
     response.message = "Password match";
+    response.user_id = user.id;
   } else {
     response.status = 402;
     response.message = "Password incorrect";

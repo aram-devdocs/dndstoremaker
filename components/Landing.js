@@ -35,6 +35,7 @@ export default function Landing() {
             console.log(res);
             if (res.status == 200) {
               setCookie("log", { status: true }); // TODO - set JWT
+              setCookie("user_id", { user_id: res.user_id });
               window.location.reload();
             } else {
               setErrorMessage(<div>{res.message}</div>);

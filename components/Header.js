@@ -1,5 +1,6 @@
 import { deleteCookie } from "../helpers/cookieHandler";
 import Dashboard from "./Dashboard";
+import ManageCustomItems from "./ManageCustomItems";
 import NewItem from "./NewItem";
 import NewStore from "./NewStore";
 import SearchDatabase from "./SearchDatabase";
@@ -30,6 +31,11 @@ export default function Header(props) {
     setAppBody(<SearchDatabase />);
   }
 
+  function setManageCustomItems(e) {
+    e.preventDefault();
+    setAppBody(<ManageCustomItems />);
+  }
+
   async function loggout(e) {
     e.preventDefault();
     await deleteCookie("log");
@@ -52,6 +58,12 @@ export default function Header(props) {
         className="w3-bar-item w3-button w3-mobile"
       >
         Search Database
+      </a>
+      <a
+        onClick={setManageCustomItems}
+        className="w3-bar-item w3-button w3-mobile"
+      >
+        Manage Custom Items
       </a>
       <a onClick={loggout} className="w3-bar-item w3-button w3-mobile">
         Logout

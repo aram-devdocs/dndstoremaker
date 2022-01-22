@@ -121,4 +121,15 @@ export async function deleteRowInTable(table, id) {
   return message;
 }
 
+export async function deleteRowInTableWhere(table, key, match) {
+  // Pass table, key, and match
+  let message;
+  message = await excuteQuery({
+    query: `DELETE FROM ${table} WHERE ${key}='${match}'`,
+    values: [],
+  });
+
+  return message;
+}
+
 // selectAllFromTable("content");

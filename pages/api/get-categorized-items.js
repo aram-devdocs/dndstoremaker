@@ -10,6 +10,6 @@ export default async function handler(req, res) {
     body.category_id
   );
 
-  console.log(categories);
+  // console.log(categories);
   res.status(200).json(categories);
 }
