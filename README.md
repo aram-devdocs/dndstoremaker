@@ -1,8 +1,24 @@
 # dndstoremaker
 
-// Category_id 90 is reserved for Custom Items
+If you are looking to create a sharable store for your campaign, go to:(https://www.dndstoremaker.com/)
 
-mySQL
+If you are looking to build and deploy this as an adaptation of your own project, check the information below.
+
+Notes:
+Category_id 90 is reserved for Custom Items, be sure to inject this data into your own database
+Uncomment and use /api/seed-sql.js to seed your database
+All seed data is provided by the wonderful team over at D&D 5e API (http://www.dnd5eapi.co/)
+
+For local deployment, set up mysql database and create a .env file out of the TEMPLATE.env
+
+```bash
+npm install
+npm run dev // Work locally
+npm run build
+npm run start
+```
+
+mySQL Schema
 Tables:
 [category]
 
