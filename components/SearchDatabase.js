@@ -93,9 +93,13 @@ export default function SearchDatabase(props) {
     let details = JSON.parse(items[0].details);
     // console.log(items);
     // TODO - Filter through details
-    let arr = [];
-    arr.push(<pre key="preview">{JSON.stringify(details, null, 2)}</pre>);
-    setItemDetails(arr);
+
+    let str = JSON.stringify(details, null, 1);
+    setItemDetails(
+      <div key="preview">
+        <pre>{str}</pre>
+      </div>
+    );
   }
   // Return App
   return (
@@ -109,14 +113,16 @@ export default function SearchDatabase(props) {
       </select>
       <br />
       <label htmlFor="items">Items</label>
-      <select name="items" onChange={selectItemDescription} name="items">
+      <select name="items" onChange={selectItemDescription}>
         <option>....</option>
         {item_options}
       </select>
       <br />
 
       <label htmlFor="details">Details</label>
-      {item_details}
+      <div className="w3-container w3-mobile w3-half text-wrap">
+        {item_details}
+      </div>
     </div>
   );
 }
