@@ -1,6 +1,7 @@
 import { getServerSideCookie } from "../helpers/cookieHandler";
 import Landing from "../components/Landing";
 import Parent from "../components/Parent";
+
 export async function getServerSideProps({ req, res }) {
   let logged;
 
@@ -17,6 +18,11 @@ export async function getServerSideProps({ req, res }) {
     return {
       props: {
         status: true,
+        dnd_categories: await fetch(
+          "https://www.dnd5eapi.co/api/equipment-categories/"
+        ).then((e) => {
+          return e.json();
+        }),
       },
     };
   } else {

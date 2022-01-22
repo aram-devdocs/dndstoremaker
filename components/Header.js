@@ -27,7 +27,7 @@ export default function Header(props) {
 
   function setSearchDatabase(e) {
     e.preventDefault();
-    setAppBody(<SearchDatabase />);
+    setAppBody(<SearchDatabase results={props.props.dnd_categories.results} />);
   }
 
   async function loggout(e) {
