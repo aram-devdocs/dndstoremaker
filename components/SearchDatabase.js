@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ItemCard from "./ItemCard";
 export default function SearchDatabase(props) {
   // Dtates
   let [category_options, setCategoryOptions] = useState([]);
@@ -97,7 +98,8 @@ export default function SearchDatabase(props) {
     let str = JSON.stringify(details, null, 1);
     setItemDetails(
       <div key="preview">
-        <pre>{str}</pre>
+        <ItemCard data={details} />
+        {/* <pre>{str}</pre> */}
       </div>
     );
   }
