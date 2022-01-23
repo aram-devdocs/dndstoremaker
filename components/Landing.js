@@ -1,5 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from "./../helpers/cookieHandler";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 export default function Landing() {
   let [errorMessage, setErrorMessage] = useState([]);
 
@@ -45,6 +46,13 @@ export default function Landing() {
         />
       </form>
       {errorMessage}
+
+      <p>
+        Need a new account?{" "}
+        <Link href={"/new-user"}>
+          <mark>Click here to sign up!</mark>
+        </Link>
+      </p>
     </div>
   );
 }
