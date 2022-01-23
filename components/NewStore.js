@@ -18,7 +18,7 @@ export default function NewStore() {
         set_item_list={setItemList}
         mode="add"
       />
-      <div class="w3-container" id="item_list">
+      <div className="w3-container" id="item_list">
         <ul />
         <h4>Item Inventory</h4>
         <input id="store_name" type={"text"} placeholder="Store Name" />
