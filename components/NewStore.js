@@ -26,7 +26,7 @@ export default function NewStore() {
         <input
           type="button"
           value="Save Store"
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
             let item_arr = [];
             for (let i in domList) {
