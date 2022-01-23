@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     name: body.name,
     user_id: body.user_id,
     slug: body.slug,
-    item_arr: body.item_arr,
+    items_arr: body.item_arr,
   });
 
   console.log(response);
