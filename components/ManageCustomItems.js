@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 export default function ManageCustomItems() {
   let [delete_item_table_body, setDeleteItemTableBody] = useState([]);
+  let [delete_store_table_body, setDeleteStoreTableBody] = useState([]);
+
   useEffect(() => {
     (async () => {
       let items = await fetch("/api/get-categorized-items", {
@@ -10,6 +12,10 @@ export default function ManageCustomItems() {
           category_id: 90,
         }),
       }).then((e) => {
+        return e.json();
+      });
+
+      let stores = await fetch("/api/get-stores").then((e) => {
         return e.json();
       });
 
@@ -40,6 +46,34 @@ export default function ManageCustomItems() {
       }
 
       setDeleteItemTableBody(delete_item_table_array);
+
+      // Set Delete Store Table
+      let delete_store_table_array = [];
+      for (let i in stores) {
+        let store = stores[i];
+        delete_store_table_array.push(
+          <tr>
+            <td>{store.name}</td>
+            <td>{store.store_id}</td>
+            <td>{store.user_id}</td>
+            <td>
+              <input
+                type={"button"}
+                value={"Delete"}
+                onClick={async () => {
+                  await fetch("/api/delete-store", {
+                    method: "POST",
+                    body: JSON.stringify({ store_id: store.store_id }),
+                  });
+                  window.location.reload();
+                }}
+              />
+            </td>
+          </tr>
+        );
+      }
+
+      setDeleteStoreTableBody(delete_store_table_array);
     })();
   }, []);
   return (
@@ -57,6 +91,19 @@ export default function ManageCustomItems() {
           </tr>
         </thead>
         <tbody>{delete_item_table_body}</tbody>
+      </table>
+
+      <h2>Delete Stores</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Store ID</th>
+            <th>User ID</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{delete_store_table_body}</tbody>
       </table>
     </div>
   );
