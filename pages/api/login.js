@@ -1,6 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { setServerSideCookie } from "../../helpers/cookieHandler";
+import {
+  deleteServerSideCookie,
+  setServerSideCookie,
+} from "../../helpers/cookieHandler";
 import { checkPassword } from "../../helpers/handleLogin";
 import { selectRowFromTableWithMatch } from "../../middleware/database";
 export default async function handler(req, res) {
@@ -19,6 +22,8 @@ export default async function handler(req, res) {
   }
 
   let user = match[0];
+
+  deleteServerSideCookie({ req, res }, "last_app");
 
   if (await checkPassword(user.password, body.password)) {
     response.status = 200;

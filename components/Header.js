@@ -45,6 +45,7 @@ export default function Header(props) {
   async function loggout(e) {
     e.preventDefault();
     await deleteCookie("log");
+    await deleteCookie("last_app");
     window.location.reload();
   }
 

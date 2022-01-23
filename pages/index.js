@@ -7,9 +7,9 @@ export async function getServerSideProps({ req, res }) {
 
   // console.log(req);
   // Check to see if logged in.
-  try {
-    logged = getServerSideCookie({ req, res }, "log");
-  } catch (error) {
+  logged = getServerSideCookie({ req, res }, "log");
+
+  if (logged == null) {
     logged = { status: false };
   }
   // console.log(logged);
