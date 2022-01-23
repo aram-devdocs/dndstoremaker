@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from "./../helpers/cookieHandler";
+import { deleteCookie, getCookie, setCookie } from "./../helpers/cookieHandler";
 import { useState, useEffect } from "react";
 export default function Landing() {
   let [errorMessage, setErrorMessage] = useState([]);
@@ -36,6 +36,7 @@ export default function Landing() {
             if (res.status == 200) {
               setCookie("log", { status: true }); // TODO - set JWT
               setCookie("user_id", { user_id: res.user_id });
+              deleteCookie("last_app");
               window.location.reload();
             } else {
               setErrorMessage(<div>{res.message}</div>);

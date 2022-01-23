@@ -5,6 +5,7 @@ import Parent from "../components/Parent";
 export async function getServerSideProps({ req, res }) {
   let logged;
 
+  // console.log(req);
   // Check to see if logged in.
   try {
     logged = getServerSideCookie({ req, res }, "log");
@@ -18,16 +19,23 @@ export async function getServerSideProps({ req, res }) {
     return {
       props: {
         status: true,
+        last_app: getServerSideCookie({ req, res }, "last_app") || null,
       },
     };
   } else {
-    return { props: { status: false } };
+    return {
+      props: {
+        status: false,
+        last_app: getServerSideCookie({ req, res }, "last_app") || null,
+      },
+    };
   }
 }
 
 // Main Deployment
 export default function Home(props) {
   // debugWorker();
+  console.log(props);
   if (!props.status) {
     return <Landing />;
   }
@@ -35,7 +43,7 @@ export default function Home(props) {
   return (
     <div className="main">
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-      <Parent props={props} />
+      <Parent last_app={props.last_app} props={props} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { deleteCookie } from "../helpers/cookieHandler";
+import { deleteCookie, setCookie } from "../helpers/cookieHandler";
 import Dashboard from "./Dashboard";
 import ManageCustomItems from "./ManageCustomItems";
 import NewItem from "./NewItem";
@@ -13,26 +13,32 @@ export default function Header(props) {
 
   function setDash(e) {
     e.preventDefault();
+    setCookie("last_app", "dashboard");
+
     setAppBody(<Dashboard />);
   }
 
   function setNewItem(e) {
     e.preventDefault();
+    setCookie("last_app", "newitem");
     setAppBody(<NewItem />);
   }
 
   function setNewStore(e) {
     e.preventDefault();
+    setCookie("last_app", "newstore");
     setAppBody(<NewStore />);
   }
 
   function setSearchDatabase(e) {
     e.preventDefault();
+    setCookie("last_app", "search");
     setAppBody(<SearchDatabase />);
   }
 
   function setManageCustomItems(e) {
     e.preventDefault();
+    setCookie("last_app", "manage");
     setAppBody(<ManageCustomItems />);
   }
 
@@ -57,13 +63,13 @@ export default function Header(props) {
         onClick={setSearchDatabase}
         className="w3-bar-item w3-button w3-mobile"
       >
-        Search Database
+        Search
       </a>
       <a
         onClick={setManageCustomItems}
         className="w3-bar-item w3-button w3-mobile"
       >
-        Manage Custom Items
+        Manage
       </a>
       <a onClick={loggout} className="w3-bar-item w3-button w3-mobile">
         Logout

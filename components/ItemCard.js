@@ -9,6 +9,8 @@ export default function ItemCard(props) {
   // Iterate through data to push onto DOM
 
   if (props.mode == "view") {
+    // ANCHOR -> Add view for search
+
     for (let i in props.data) {
       let key = i;
       let value = props.data[i];
@@ -38,6 +40,8 @@ export default function ItemCard(props) {
       }
     }
   } else if (props.mode == "new") {
+    // ANCHOR -> Add view for new item
+
     for (let i in props.data) {
       let key = i;
       let value = props.data[i];
@@ -105,7 +109,7 @@ export default function ItemCard(props) {
         }),
       });
 
-      console.log(new_item);
+      window.location.reload();
     }
     element_arrays.push(
       <input
@@ -116,6 +120,7 @@ export default function ItemCard(props) {
       />
     );
   } else if (props.mode == "add") {
+    // ANCHOR -> Add view for new store
     for (let i in props.data) {
       let key = i;
       let value = props.data[i];

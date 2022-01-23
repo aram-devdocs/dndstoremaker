@@ -1,6 +1,6 @@
 // import cookieCutter from 'cookie-cutter';
-let cookie = require('cookie-cutter');
-import Cookies from 'cookies';
+let cookie = require("cookie-cutter");
+import Cookies from "cookies";
 
 // Send data in the form of Javascript objects, parsing will be done by handler
 // to send and delivery usable objects
@@ -24,7 +24,7 @@ export function getCookie(id) {
 }
 
 export function deleteCookie(id) {
-  cookie.set(id, '', { expires: new Date(0) });
+  cookie.set(id, "", { expires: new Date(0) });
 }
 
 export function setServerSideCookie({ req, res }, id, data) {
@@ -42,8 +42,12 @@ export function deleteServerSideCookie({ req, res }, id) {
 export function getServerSideCookie({ req, res }, id) {
   const cookies = new Cookies(req, res);
 
-  let data = cookies.get(id);
-  data = JSON.parse(decodeURIComponent(data));
+  try {
+    let data = cookies.get(id);
+    data = JSON.parse(decodeURIComponent(data));
 
-  return data;
+    return data;
+  } catch (error) {
+    return null;
+  }
 }
