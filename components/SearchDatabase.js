@@ -96,12 +96,28 @@ export default function SearchDatabase(props) {
     // TODO - Filter through details
 
     let str = JSON.stringify(details, null, 1);
-    setItemDetails(
-      <div key="preview">
-        <ItemCard mode={props.mode || "view"} data={details} />
-        {/* <pre>{str}</pre> */}
-      </div>
-    );
+
+    if (props.mode == "add") {
+      setItemDetails(
+        <div key="preview">
+          <ItemCard
+            item_list={props.item_list}
+            set_item_list={props.set_item_list}
+            item_id={id}
+            mode={props.mode || "view"}
+            data={details}
+          />
+          {/* <pre>{str}</pre> */}
+        </div>
+      );
+    } else {
+      setItemDetails(
+        <div key="preview">
+          <ItemCard mode={props.mode || "view"} data={details} />
+          {/* <pre>{str}</pre> */}
+        </div>
+      );
+    }
 
     // Set local storage object for current item details
 
@@ -126,7 +142,7 @@ export default function SearchDatabase(props) {
       </select>
       <br />
 
-      <label htmlFor="details">Details</label>
+      {/* <label htmlFor="details">Details</label> */}
       <div className="w3-container w3-mobile w3-half text-wrap">
         {item_details}
       </div>

@@ -19,7 +19,9 @@ npm run start
 ```
 
 mySQL Schema
+
 Tables:
+
 [category]
 
 - category_id => int (primary, auto)
@@ -36,7 +38,15 @@ Tables:
 
 - item_details_id => int (primary, auto)
 - item_id => int
-- details => json
+- details => json (object)
+
+[store]
+
+- store_id => int (primary, auto)
+- user_id => int
+- name => string
+- items_arr => json (array)
+- slug => string
 
 [user]
 

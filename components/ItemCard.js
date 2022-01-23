@@ -115,6 +115,49 @@ export default function ItemCard(props) {
         onClick={submitNewItem}
       />
     );
+  } else if (props.mode == "add") {
+    for (let i in props.data) {
+      let key = i;
+      let value = props.data[i];
+
+      if (typeof value == "object") {
+        for (let x in value) {
+          let sub_key = x;
+          let sub_value = value[x];
+
+          element_arrays.push(
+            <li>
+              {key + "_" + sub_key}:{" "}
+              <input
+                type={typeof sub_value}
+                disabled
+                value={String(sub_value)}
+              />
+            </li>
+          );
+        }
+      } else {
+        element_arrays.push(
+          <li>
+            {key}: <input type={typeof value} disabled value={String(value)} />
+          </li>
+        );
+      }
+    }
+
+    // Add button for adding item to store template
+    element_arrays.push(
+      <input
+        type={"submit"}
+        value={"Add to store"}
+        onClick={(e) => {
+          e.preventDefault();
+          // console.log(props);
+          let setList = props.set_item_list;
+          setList(<li id={props.item_id}>{props.data.name}</li>);
+        }}
+      />
+    );
   }
 
   return (
