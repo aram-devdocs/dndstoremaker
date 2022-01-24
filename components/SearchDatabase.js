@@ -5,7 +5,7 @@ export default function SearchDatabase(props) {
   let [category_options, setCategoryOptions] = useState([]);
   let [item_options, setItemOptions] = useState([]);
   let [item_details, setItemDetails] = useState([]);
-
+  let [lastHover, setLastHover] = useState({ category: null, item: null });
   // Run On component Load
   useEffect(() => {
     (async () => {
@@ -48,8 +48,16 @@ export default function SearchDatabase(props) {
     }
     // console.log(id);
     id = id.slice(5);
-    // console.log(id);
-    // console.log(document.getElementById("categories").id);
+
+    // Hover Item
+    let cat = lastHover;
+    console.log(cat);
+    if (cat.item !== null) {
+      document.getElementById(cat.item).classList.remove("w3-blue");
+    }
+    document.getElementById(e.target.value).classList.add("w3-blue");
+    cat.item = e.target.value;
+    setLastHover(cat);
 
     let items = await fetch("/api/get-item-description", {
       method: "POST",
@@ -121,6 +129,17 @@ export default function SearchDatabase(props) {
     }).then((e) => {
       return e.json();
     });
+
+    // Hover Category
+    let cat = lastHover;
+    console.log(cat);
+    if (cat.category !== null) {
+      document.getElementById(cat.category).classList.remove("w3-blue");
+    }
+    document.getElementById(e.target.value).classList.add("w3-blue");
+    cat.category = e.target.value;
+    cat.item = null;
+    setLastHover(cat);
 
     console.log(items);
     let arr = [];

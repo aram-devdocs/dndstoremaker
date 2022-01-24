@@ -27,7 +27,7 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-export default function DynamicPage(props) {
+export default function PublicStore(props) {
   let page = props.pages;
   console.log(page);
   let items = JSON.parse(page.items_arr);
