@@ -31,9 +31,9 @@ export const getServerSideProps = async (context) => {
 
 export default function PublicStore(props) {
   let page = props.pages;
-  console.log(page);
+  // console.log(page);
   let items = JSON.parse(page.items_arr);
-  console.log(items);
+  // console.log(items);
 
   let [storeBody, setStoreBody] = useState(<Loader />);
   let [item_description, setItemDesc] = useState([]);
@@ -49,7 +49,7 @@ export default function PublicStore(props) {
         return e.json();
       });
 
-      console.log(item_list);
+      // console.log(item_list);
 
       // Populate item list
 
@@ -67,7 +67,7 @@ export default function PublicStore(props) {
         });
 
         description = description[0];
-        console.log(description);
+        // console.log(description);
         setItemDesc(
           <ItemCard mode="view" data={JSON.parse(description.details)} />
         );
