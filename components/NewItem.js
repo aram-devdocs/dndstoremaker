@@ -12,7 +12,7 @@ export default function NewItem() {
 
       if (cookie) {
         console.log("error caught");
-        setErrorMessage(<h3>Item added to 'custom-item' category.</h3>);
+        setErrorMessage(<h3>{`Item added to "custom-item" category.`}</h3>);
         deleteCookie("new_item");
       }
     })();
