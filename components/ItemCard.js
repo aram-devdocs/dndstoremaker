@@ -20,6 +20,24 @@ export default function ItemCard(props) {
           let sub_key = x;
           let sub_value = value[x];
 
+          if (typeof sub_value == "object") {
+            for (let y in sub_value) {
+              let sub2_key = y;
+              let sub2_value = sub_value[y];
+
+              element_arrays.push(
+                <li>
+                  {sub_key + "_" + sub2_key}:{" "}
+                  <input
+                    type={typeof sub2_value}
+                    disabled
+                    value={String(sub2_value)}
+                  />
+                </li>
+              );
+            }
+          }
+
           element_arrays.push(
             <li>
               {key + "_" + sub_key}:{" "}
@@ -105,6 +123,25 @@ export default function ItemCard(props) {
           let sub_key = x;
           let sub_value = value[x];
 
+          if (typeof sub_value == "object") {
+            for (let y in sub_value) {
+              let sub2_key = y;
+              let sub2_value = sub_value[y];
+
+              element_arrays.push(
+                <li key={`${sub2_value}_${sub2_key}`}>
+                  {key + "_" + sub_key}:{" "}
+                  <input
+                    className="details_input"
+                    id={`${sub_key}_${sub2_key}`}
+                    type={typeof sub2_value}
+                    defaultValue={String(sub2_value)}
+                  />
+                </li>
+              );
+            }
+          }
+
           element_arrays.push(
             <li key={`${sub_value}_${sub_key}`}>
               {key + "_" + sub_key}:{" "}
@@ -169,6 +206,24 @@ export default function ItemCard(props) {
         for (let x in value) {
           let sub_key = x;
           let sub_value = value[x];
+
+          if (typeof sub_value == "object") {
+            for (let y in sub_value) {
+              let sub2_key = y;
+              let sub2_value = sub_value[y];
+
+              element_arrays.push(
+                <li>
+                  {sub_key + "_" + sub2_key}:{" "}
+                  <input
+                    type={typeof sub2_value}
+                    disabled
+                    value={String(sub2_value)}
+                  />
+                </li>
+              );
+            }
+          }
 
           element_arrays.push(
             <li>
