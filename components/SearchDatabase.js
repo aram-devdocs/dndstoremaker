@@ -53,9 +53,15 @@ export default function SearchDatabase(props) {
           let item_id = `item_${id}`;
           document.getElementById(cat_id).click();
 
+          // TODO - wait for element to appear on screen regardless of set time
           setTimeout(async () => {
-            console.log(item_id);
-            await document.getElementById(item_id).click();
+            try {
+              await document.getElementById(item_id).click();
+            } catch (error) {
+              setTimeout(async () => {
+                await document.getElementById(item_id).click();
+              }, 300);
+            }
           }, 200);
         }
 
