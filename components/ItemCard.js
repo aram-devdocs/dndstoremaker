@@ -1,5 +1,6 @@
 import { getCookie } from "../helpers/cookieHandler";
 import _escapeString from "./../helpers/_escapeString";
+import { setCookie } from "./../helpers/cookieHandler";
 
 export default function ItemCard(props) {
   // console.log(props);
@@ -58,7 +59,7 @@ export default function ItemCard(props) {
       }
     }
   } else if (props.mode == "new") {
-    // ANCHOR -> Add view for new item
+    // ANCHOR -> View for new item
 
     // Add instruction block
     let instruction = (
@@ -101,6 +102,8 @@ export default function ItemCard(props) {
         }),
       });
 
+      // Exit out
+      setCookie("new_item", "true");
       window.location.reload();
     }
 
