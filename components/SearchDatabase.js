@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
+import Loader from "./Loader";
 export default function SearchDatabase(props) {
   // Dtates
-  let [category_options, setCategoryOptions] = useState([]);
+  let [category_options, setCategoryOptions] = useState(<Loader />);
   let [item_options, setItemOptions] = useState([]);
   let [item_details, setItemDetails] = useState([]);
   let [lastHover, setLastHover] = useState({ category: null, item: null });

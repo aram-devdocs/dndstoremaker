@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Loader from "./Loader";
 export default function Dashboard() {
-  let [storeList, setStoreList] = useState([]);
-  let [itemList, setItemList] = useState([]);
+  let [storeList, setStoreList] = useState(<Loader />);
+  let [itemList, setItemList] = useState(<Loader />);
 
   useEffect(() => {
     (async () => {

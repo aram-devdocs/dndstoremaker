@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-
+import Loader from "./Loader";
 export default function ManageCustomItems() {
-  let [delete_item_table_body, setDeleteItemTableBody] = useState([]);
-  let [delete_store_table_body, setDeleteStoreTableBody] = useState([]);
+  let [delete_item_table_body, setDeleteItemTableBody] = useState(<Loader />);
+  let [delete_store_table_body, setDeleteStoreTableBody] = useState(<Loader />);
 
   useEffect(() => {
     (async () => {

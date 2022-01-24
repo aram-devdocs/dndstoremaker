@@ -2,6 +2,7 @@ import SearchDatabase from "./SearchDatabase";
 import { useEffect, useState } from "react";
 import { getCookie } from "./../helpers/cookieHandler";
 import _escapeString from "../helpers/_escapeString";
+import Loader from "./Loader";
 export default function NewStore() {
   let [itemList, setItemList] = useState([]);
   let [domList, setDomList] = useState([]);

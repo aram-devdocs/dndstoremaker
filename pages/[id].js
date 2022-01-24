@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Loader from "../components/Loader";
 export const getServerSideProps = async (context) => {
   // console.log(context.query.id);
   let db = await fetch(
@@ -33,7 +34,7 @@ export default function PublicStore(props) {
   let items = JSON.parse(page.items_arr);
   console.log(items);
 
-  let [storeBody, setStoreBody] = useState([]);
+  let [storeBody, setStoreBody] = useState(<Loader />);
   useEffect(() => {
     (async () => {
       let item_list = await fetch("/api/post-retrieve-store-data", {
@@ -52,7 +53,7 @@ export default function PublicStore(props) {
         let item_local = item_list[i];
         let details = JSON.parse(item_local.details);
         store_body.push(
-          <tr>
+          <tr className="w3-hoverable w3-hover-blue w3-animate-bottom	">
             <td>{item_local.name}</td>
             <td>{item_local.id}</td>
           </tr>
@@ -67,9 +68,9 @@ export default function PublicStore(props) {
     <div>
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 
-      <h1>{page.name}</h1>
+      <h1 className="w3-center">{page.name}</h1>
 
-      <table>
+      <table className="w3-table w3-mobile  w3-border  w3-container w3-bordered w3-centered  w3-table-all">
         <thead>
           <tr>
             <th>Item</th>

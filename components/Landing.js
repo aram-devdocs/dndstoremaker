@@ -1,6 +1,7 @@
 import { deleteCookie, getCookie, setCookie } from "./../helpers/cookieHandler";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Loader from "./Loader";
 export default function Landing() {
   let [errorMessage, setErrorMessage] = useState([]);
 
