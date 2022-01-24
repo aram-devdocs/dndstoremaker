@@ -7,6 +7,8 @@ export default function SearchDatabase(props) {
   let [item_options, setItemOptions] = useState([]);
   let [item_details, setItemDetails] = useState([]);
   let [lastHover, setLastHover] = useState({ category: null, item: null });
+  let [category_search, setCategorySearch] = useState([]);
+  let [item_search, setItemSearch] = useState([]);
   // Run On component Load
   useEffect(() => {
     (async () => {
@@ -15,8 +17,54 @@ export default function SearchDatabase(props) {
         return e.json();
       });
 
+      let items = await fetch("/api/get-all-items").then((e) => {
+        return e.json();
+      });
+
+      // Set Up Search Item Selector
+      async function selectSearch(e) {
+        e.preventDefault();
+        // console.log(e.target.id);
+        let category_check = e.target.id[0];
+        if (category_check == "c") {
+          // Item clicked is category
+          let cat = lastHover;
+          let id = e.target.id.slice(15);
+          id = `category_${id}`;
+          document.getElementById(id).click();
+        } else {
+          // Item clicked is item
+          let cat = lastHover;
+          let id = e.target.id.slice(11);
+
+          // Find matching Item
+
+          let item_details = items.filter((e) => {
+            return e.item_id == id;
+          });
+          item_details = item_details[0];
+
+          // Find Matching category
+          let category = categories.filter((e) => {
+            return e.category_id == item_details.category_id;
+          });
+          category = category[0];
+          let cat_id = `category_${category.category_id}`;
+          let item_id = `item_${id}`;
+          document.getElementById(cat_id).click();
+
+          setTimeout(async () => {
+            console.log(item_id);
+            await document.getElementById(item_id).click();
+          }, 200);
+        }
+
+        document.getElementById("search_input").value = "";
+        document.getElementById("search_results").hidden = true;
+      }
       // Populate Category Options
       let arr = [];
+      let cat_search_arr = [];
       for (let i in categories) {
         let c = categories[i];
         arr.push(
@@ -30,9 +78,48 @@ export default function SearchDatabase(props) {
             {c.name}
           </option>
         );
+
+        // Set up Search bar
+        cat_search_arr.push(
+          <li
+            hidden
+            onClick={selectSearch}
+            className="search_results w3-card w3-hoverable w3-hover-blue"
+            id={`category_search${c.category_id}`}
+            key={`category_search${c.category_id}`}
+          >
+            {c.name}
+          </li>
+        );
       }
 
+      setCategorySearch(cat_search_arr);
       setCategoryOptions(arr);
+
+      // Populate Item Search Bar
+      let item_search_arr = [];
+
+      for (let i in items) {
+        let item = items[i];
+
+        let category = categories.filter((e) => {
+          return e.category_id == item.category_id;
+        });
+        category = category[0];
+        item_search_arr.push(
+          <li
+            hidden
+            onClick={selectSearch}
+            className="search_results w3-card w3-hoverable w3-hover-blue"
+            id={`item_search${item.item_id}`}
+            key={`item_search${item.item_id}`}
+          >
+            {category.name} {"->"} {item.name}
+          </li>
+        );
+      }
+
+      setItemSearch(item_search_arr);
     })();
   }, []);
 
@@ -178,10 +265,51 @@ export default function SearchDatabase(props) {
   } catch (error) {}
   if (view_size == undefined) view_size = "w3-third";
 
+  function searchBar(e) {
+    // TODO - Optmize Search Bar
+    e.preventDefault();
+    let input = e.target.value;
+    if (input.length > 0) {
+      document.getElementById("search_results").hidden = false;
+      let search_results = document.getElementsByClassName("search_results");
+      // console.log(search_results[0].innerText);
+
+      search_results = Array.from(search_results);
+      for (let i in search_results) {
+        try {
+          let result = search_results[i];
+          let text = search_results[i].innerText;
+          if (text.toUpperCase().indexOf(input.toUpperCase()) > -1) {
+            result.hidden = false;
+          } else {
+            result.hidden = true;
+          }
+        } catch (error) {
+          result.hidden = true;
+        }
+      }
+    } else {
+      document.getElementById("search_results").hidden = true;
+    }
+  }
+
   // Return App
   return (
     <div>
       {/* New Wrapper */}
+      <input
+        id="search_input"
+        type={"search"}
+        placeholder="Search"
+        onChange={searchBar}
+      />
+      <div
+        id="search_results"
+        className=" w3-container w3-border search_results_wrapper"
+        hidden
+      >
+        {category_search} {item_search}
+      </div>
       <div id="search_database_wrapper" className="w3-container">
         <div id="category_col" className={view_size + " w3-border "}>
           <div className="w3-card w3-row w3-blue-grey">Categories</div>

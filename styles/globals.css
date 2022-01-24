@@ -17,6 +17,11 @@ a {
   /* color: white; */
 }
 
+.search_results_wrapper {
+  width: 400px;
+  height: 400px;
+  overflow: scroll;
+}
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
