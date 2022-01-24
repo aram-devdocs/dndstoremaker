@@ -68,7 +68,9 @@ export default function PublicStore(props) {
 
         description = description[0];
         console.log(description);
-        setItemDesc(<ItemCard mode="view" data={description} />);
+        setItemDesc(
+          <ItemCard mode="view" data={JSON.parse(description.details)} />
+        );
       }
 
       let store_body = [];
